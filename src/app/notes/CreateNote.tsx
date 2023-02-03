@@ -33,6 +33,8 @@ const create = async () => {
             />
             <textarea
             placeholder="Contenido"
+            rows={10}
+            cols={20}
             value={field}
             onChange={(e) => setField(e.target.value)}
             />

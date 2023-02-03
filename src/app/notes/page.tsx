@@ -1,6 +1,8 @@
 import Link from "next/link";
 import CreateNote from "./CreateNote";
-import styles from './Notes.module.css';
+import stylesnext from '../page.module.css'
+import { Inter } from '@next/font/google'
+const inter = Inter({ subsets: ['latin'] })
 async function getNotes(){
     const res = await fetch(
         'http://127.0.0.1:8090/api/collections/notes/records?perPage=200',
@@ -13,11 +15,11 @@ async function getNotes(){
 export default async function NotesPage(){
     const notes = await getNotes();
     return(
-        <div>
-            <h1>
+        <div className={stylesnext.main}>
+            <h2 className={inter.className}>
                 Notas       
-            </h1>
-            <div className={styles.grid}>
+            </h2>
+            <div className={stylesnext.grid}>
             {
                 notes?.map((note) => {
                 return <Note key={note.id} note={note}/>;
@@ -34,13 +36,13 @@ function Note({ note }: any){
     const { id, title, field, created } = note || {};
     const created_at = new Date(created)
     return (     
-    <Link href={`/notes/${id}`}>      
-        <div className={styles.note}>           
-            <h2>{title}</h2>
-            <h5>{field}</h5>
-            <span>{created_at.toLocaleString('es-MX')}</span>
-        </div>  
-    </Link>
+        <Link href={`/notes/${id}`}>
+            <div  className={stylesnext.card}>   
+                <h2 className={inter.className}>{title} <span>-&gt;</span></h2>
+                <p className={inter.className}>{field}</p>
+                <p className={inter.className}>{created_at.toLocaleString('es-MX')}</p> 
+            </div> 
+        </Link>
     );
 }
 
